@@ -1,1 +1,0 @@
-{"ast":null,"code":"export var constants = {\n  classes: {\n    SOLID_STAR: 'fa fa-star fa-lg',\n    OUTLINE_STAR: 'fa fa-star-o fa-lg',\n    SOLID_STAR_STYLE_LIST: ['fa', 'fa-star', 'fa-lg'],\n    OUTLINE_STAR_STYLE_LIST: ['fa', 'fa-star-o', 'fa-lg']\n  }\n};","map":null,"metadata":{},"sourceType":"module","externalDependencies":[]}
