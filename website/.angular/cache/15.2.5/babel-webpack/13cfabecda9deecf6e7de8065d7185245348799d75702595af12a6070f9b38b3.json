@@ -1,0 +1,1 @@
+{"ast":null,"code":"export var constants = {\n  NO_CONTACTS_FOUND_MESSAGE: 'You do not have any contacts yet',\n  LOADING_CONTACTS_MESSAGE: 'Loading contacts...',\n  DELETING_CONTACTS_MESSAGE: 'Deleting contacts...',\n  DELETING_CONTACT_MESSAGE: 'Deleting contact...'\n};","map":null,"metadata":{},"sourceType":"module","externalDependencies":[]}

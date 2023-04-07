@@ -1,4 +1,4 @@
-import { Directive, ElementRef, Input, HostListener, OnInit, Renderer } from '@angular/core';
+import { Directive, ElementRef, Input, HostListener, OnInit, Renderer2 } from '@angular/core';
 
 import { constants } from './favorite-icon.constants';
 
@@ -35,7 +35,7 @@ import { constants } from './favorite-icon.constants';
 })
 export class FavoriteIconDirective implements OnInit {
   private element: HTMLElement;
-  private renderer: Renderer;
+  private renderer: Renderer2;
   private _primaryColor = 'gold';
   private _starClasses: any = constants.classes;
 
@@ -48,7 +48,7 @@ export class FavoriteIconDirective implements OnInit {
     }
   }
 
-  constructor(element: ElementRef, renderer: Renderer) {
+  constructor(element: ElementRef, renderer: Renderer2) {
     this.element = element.nativeElement;
     this.renderer = renderer;
   }
@@ -103,11 +103,11 @@ export class FavoriteIconDirective implements OnInit {
 
   private setStarClass(starType: string): void {
     const className: string = this.getStarClasses(starType);
-    this.renderer.setElementAttribute(this.element, 'class', className);
+    this.renderer.setProperty(this.element, 'class', className);
   }
 
   private setStarColor(color: string): void {
-    this.renderer.setElementStyle(this.element, 'color', color);
+    this.renderer.setProperty(this.element, 'color', color);
   }
 
   private getStarClasses(starType): string {

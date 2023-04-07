@@ -1,5 +1,9 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
-import { MatDialog, MatDialogRef, MatSnackBar, MatSnackBarConfig } from '@angular/material';
+import { MatDialog} from '@angular/material/dialog';
+import { MatDialogRef} from '@angular/material/dialog';
+import { MatSnackBar} from '@angular/material/snack-bar';
+import { MatSnackBarConfig } from '@angular/material/snack-bar';
+
 import { ActivatedRoute } from '@angular/router';
 import { Router } from '@angular/router';
 

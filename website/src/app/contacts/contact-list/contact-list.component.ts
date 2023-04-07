@@ -1,6 +1,6 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
-import { MatSnackBar, MatSnackBarConfig } from '@angular/material';
+import { MatSnackBar, MatSnackBarConfig } from '@angular/material/snack-bar';
 
 import {
   Contact,
@@ -83,7 +83,9 @@ export class ContactListComponent implements OnInit {
     this.isLoading = true;
 
     this.contactService.getContacts()
-      .then(contacts => {
+      .subscribe(resp => {
+        console.log("***Get contacts: ", resp)
+        const contacts: Contact[] = resp.data
         this.isLoading = false;
         this.deletingContacts = false;
         this.contacts = contacts;
