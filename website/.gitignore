@@ -48,3 +48,6 @@ yarn-error.log
 
 # tests
 /src/**/*.spec.ts
+
+#cache
+.angular

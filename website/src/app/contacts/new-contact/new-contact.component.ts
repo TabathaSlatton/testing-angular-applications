@@ -21,7 +21,7 @@ export class NewContactComponent implements OnInit {
 
   ngOnInit() {
     this.contactService.getContacts()
-        .then(contacts => { this.createNewContact(contacts.length); });
+      // .subscribe(contacts => { this.creat eNewContact(contacts.length); });
   }
 
   createNewContact(numContacts: number) {
@@ -43,10 +43,9 @@ export class NewContactComponent implements OnInit {
 
     this.savingContact = true;
 
-    this.contactService.save(contact)
-        .then(() => {
-          this.savingContact = false;
-          this.router.navigate(['/']);
+    this.contactService.save(contact).subscribe(() => {
+      this.savingContact = false;
+      this.router.navigate(['/']);
     });
   }
 

@@ -52,10 +52,13 @@ export class ContactEditComponent implements OnInit, OnDestroy {
   public loadContact(): void {
     this.route.params.subscribe(params => {
       const id = +params['id'];
-      this.contactService.getContact(id)
-        .then(contact => {
-          this.isLoading = false;
-          this.contact = contact;
+      this.contactService.getContacts().subscribe(resp => {
+        resp.data.forEach(contact => {
+          if (contact.id === id) {
+            this.isLoading = false;
+            this.contact = contact;
+          }
+        })
       });
     });
   }
@@ -66,8 +69,7 @@ export class ContactEditComponent implements OnInit, OnDestroy {
     }
 
     this.displayEditSnackBar();
-    this.contactService.save(contact)
-        .then(() => {
+    this.contactService.save(contact).subscribe(() => {
           this.router.navigate(['/']);
         });
   }

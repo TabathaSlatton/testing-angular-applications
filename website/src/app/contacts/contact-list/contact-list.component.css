@@ -1,5 +1,5 @@
 table {
-  margin-left: auto; 
+  margin-left: auto;
   margin-right: auto;
   width: 50%;
 }
@@ -17,22 +17,10 @@ tr {
   cursor: pointer;
 }
 
-.add-fab-icon {
-  color: white;
-}
-
-.edit-icon {
-  color: white;
-}
-
 .edit-icon:hover {
-  color: black;
-}
-
-.delete-icon {
-  color: white;
+  color: #ffd740;
 }
 
 .delete-icon:hover {
-  color: black;
+  color: #ffd740;
 }

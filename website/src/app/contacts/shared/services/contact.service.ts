@@ -1,27 +1,22 @@
 import { Injectable } from '@angular/core';
 import { HttpHeaders, HttpClient } from '@angular/common/http'
-import { Observable, throwError } from 'rxjs';
-import { catchError, retry } from 'rxjs/operators';
+import { Observable } from 'rxjs';
 
-import { Contact } from '../';
+import { Contact, HTTPContactsResponse } from '../';
 
 @Injectable()
 export class ContactService {
   private contactsUrl = 'app/contacts';
   private headers = new HttpHeaders({'Content-Type': 'application/json'});
 
+
   constructor(private http: HttpClient) { }
 
-  public getContacts(): any {
-    return this.http.get<Contact[]>(this.contactsUrl)
+  public getContacts(): Observable<HTTPContactsResponse> {
+    return this.http.get<HTTPContactsResponse>(this.contactsUrl)
   }
 
-  public getContact(id: number): Promise<Contact> {
-    return this.getContacts()
-               .then(contacts => contacts.find(contact => contact.id === id));
-  }
-
-  public save(contact: Contact): Promise<Contact> {
+  public save(contact: Contact){
     if (contact.id) {
       return this.put(contact);
     }
@@ -29,40 +24,22 @@ export class ContactService {
     return this.post(contact);
   }
 
-  public new(contact: Contact): Promise<Contact> {
+  public new(contact: Contact) {
     return this.post(contact);
   }
 
-  public delete(contact: Contact): Promise<Contact> {
+  public delete(contact: Contact) {
     const url = `${this.contactsUrl}/${contact.id}`;
 
-    return this.http
-             .delete(url, {headers: this.headers})
-             .toPromise()
-             .then(() => null)
-             .catch(this.handleError);
+    return this.http.delete(url, {headers: this.headers});
   }
 
-  public post(contact: Contact): Promise<Contact> {
-    return this.http
-        .post(this.contactsUrl, JSON.stringify(contact), {headers: this.headers})
-        .toPromise()
-        .then(res => console.log("***from contact service: ", res))
-        .catch(this.handleError);
+  public post(contact: Contact) {
+    return this.http.post(this.contactsUrl, JSON.stringify(contact), {headers: this.headers})
   }
 
-  public put(contact: Contact): Promise<Contact> {
+  public put(contact: Contact) {
     const url = `${this.contactsUrl}/${contact.id}`;
-
-    return this.http
-             .put(url, JSON.stringify(contact), {headers: this.headers})
-             .toPromise()
-             .then(() => contact)
-             .catch(this.handleError);
-  }
-
-  private handleError(error: any): Promise<any> {
-    console.error('An error occurred', error);
-    return Promise.reject(error.message || error);
+    return this.http.put(url, JSON.stringify(contact), {headers: this.headers})
   }
 }

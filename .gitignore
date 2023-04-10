@@ -36,3 +36,4 @@ Thumbs.db
 
 # unit test results
 karma-results/
+website/.angular

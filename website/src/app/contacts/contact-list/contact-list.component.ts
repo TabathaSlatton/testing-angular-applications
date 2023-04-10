@@ -16,14 +16,14 @@ import { CONTACTS } from '../shared/data/mock-contacts';
   providers: [MatSnackBar]
 })
 export class ContactListComponent implements OnInit {
-  public noContactsFoundMessage: string = constants.NO_CONTACTS_FOUND_MESSAGE;
-  public loadingContactsMessage: string = constants.LOADING_CONTACTS_MESSAGE;
-  public deletingContactsMessage: string = constants.DELETING_CONTACTS_MESSAGE;
-  public deletingContactMessage: string = constants.DELETING_CONTACT_MESSAGE;
+  public noContactsFoundMessage = constants.NO_CONTACTS_FOUND_MESSAGE;
+  public loadingContactsMessage = constants.LOADING_CONTACTS_MESSAGE;
+  public deletingContactsMessage = constants.DELETING_CONTACTS_MESSAGE;
+  public deletingContactMessage = constants.DELETING_CONTACT_MESSAGE;
   public isLoading = true;
   public deletingContacts = false;
   public deletingContact = false;
-  public readonly backupContacts: Array<Contact> = CONTACTS.slice();
+  public readonly backupContacts: Contact[] = CONTACTS.slice();
   public selectedContact: Contact;
 
   @Input('contacts') contacts: Contact[];
@@ -54,16 +54,14 @@ export class ContactListComponent implements OnInit {
     this.deletingContact = true;
     this.displayDeleteSnackBar(contact);
 
-    this.contactService
-        .delete(contact)
-        .then(() => {
-          this.contacts = this.contacts.filter(c => c !== contact);
+    this.contactService.delete(contact).subscribe(() => {
+      this.contacts = this.contacts.filter(c => c !== contact);
 
-          if (this.selectedContact === contact) {
-            this.selectedContact = null;
-          }
+      if (this.selectedContact === contact) {
+        this.selectedContact = null;
+      }
 
-          this.deletingContact = false;
+      this.deletingContact = false;
     });
   }
 
@@ -71,25 +69,23 @@ export class ContactListComponent implements OnInit {
     this.deletingContacts = true;
 
     this.contacts.forEach((contact, index) => {
-      this.contactService.delete(contact);
-
-      if (index === this.contacts.length - 1) {
-        this.getContacts();
-      }
+      this.contactService.delete(contact).subscribe(() => {
+        if (index === this.contacts.length - 1) {
+          this.getContacts();
+        }
+      })
     });
   }
 
   public getContacts(): void {
     this.isLoading = true;
 
-    this.contactService.getContacts()
-      .subscribe(resp => {
-        console.log("***Get contacts: ", resp)
-        const contacts: Contact[] = resp.data
-        this.isLoading = false;
-        this.deletingContacts = false;
-        this.contacts = contacts;
-      });
+    this.contactService.getContacts().subscribe(resp => {
+      const contacts: Contact[] = resp.data;
+      this.isLoading = false;
+      this.deletingContacts = false;
+      this.contacts = contacts;
+    });
   }
 
   public refreshContacts() {

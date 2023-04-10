@@ -6,3 +6,6 @@ export interface Contact {
   country?: string;
   favorite?: boolean;
 }
+export interface HTTPContactsResponse {
+  data: Contact[];
+}

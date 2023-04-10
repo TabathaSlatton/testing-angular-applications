@@ -15,8 +15,8 @@ import { MatDialog } from '@angular/material/dialog';
   styleUrls: ['./contact-detail.component.css']
 })
 export class ContactDetailComponent implements OnInit {
-  public loadingContactMessage: string = constants.LOADING_CONTACT_MESSAGE;
-  public noContactFoundMessage: string = constants.NO_CONTACT_FOUND_MESSAGE;
+  public loadingContactMessage = constants.LOADING_CONTACT_MESSAGE;
+  public noContactFoundMessage = constants.NO_CONTACT_FOUND_MESSAGE;
   public isLoading = true;
   public contact: Contact = null;
 
@@ -29,10 +29,13 @@ export class ContactDetailComponent implements OnInit {
   private loadContact(): void {
     this.route.params.subscribe(params => {
       const id = +params['id'];
-      this.contactService.getContact(id)
-        .then(contact => {
-          this.isLoading = false;
-          this.contact = contact;
+      this.contactService.getContacts().subscribe(resp => {
+        resp.data.forEach(contact => {
+          if (contact.id === id) {
+            this.isLoading = false;
+            this.contact = contact;
+          }
+        })
       });
     });
   }
