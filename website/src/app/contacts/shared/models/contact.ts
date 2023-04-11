@@ -1,12 +1,12 @@
 export default class ContactClass {
-  private _id: number;
+  private _id: number = 0;
   private _name: string;
-  private _email: string;
-  private _number: string;
-  private _country: string;
-  private _favorite: boolean;
+  private _email: string = '';
+  private _number: string = '';
+  private _country: string = '';
+  private _favorite: boolean = false;
 
-  constructor(name?: string) {
+  constructor(name: string = "New Contact") {
     this._name = name;
   }
 

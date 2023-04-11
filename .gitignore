@@ -37,3 +37,4 @@ Thumbs.db
 # unit test results
 karma-results/
 website/.angular
+website/package-lock.json
